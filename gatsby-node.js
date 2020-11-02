@@ -4,10 +4,10 @@ exports.createPages = async ({ actions, graphql }) => {
     const {data} = await graphql(`
         {
             allContentfulBlog {
-                nodes {
+                node {
                     title
                     slug
-                    mainImage {
+                    image {
                         fluid {
                             src
                         }
@@ -24,14 +24,16 @@ exports.createPages = async ({ actions, graphql }) => {
     `)
     const { nodes } = data.allContentfulBlogPost;
 
-    nodes.map(({ title, slug, mainImage, content, category }) => {
+    nodes.map(({ title, slug, image, content, category }) => {
         const blogCategory = category[0].name
         actions.createPage({
-            path: `${urlNameSpace}/${blogCategory[0].toUpperCase()+blogCategory.slice(1)}/${slug}`,
+            // path: `${urlNameSpace}/${blogCategory[0].toUpperCase()+blogCategory.slice(1)}/${slug}`,
+            path: `post.node.slug`,
+
             component: require.resolve('./src/templates/BlogPost.tsx'),
             context: {
                 title,
-                imgSrc: mainImage.fluid.src,
+                imgSrc: image.fluid.src,
                 content: content.json,
                 category: blogCategory
             }

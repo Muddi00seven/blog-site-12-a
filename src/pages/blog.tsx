@@ -11,7 +11,7 @@ type querySchema = {
         nodes: {
             title: string,
             slug: string,
-            mainImage: {
+            image: {
                 fluid: {
                     src: string,
                 },
@@ -47,7 +47,7 @@ export const query = graphql`
                 nodes {
                     title
                     slug
-                    mainImage {
+                    image {
                         fluid {
                             src
                         }
