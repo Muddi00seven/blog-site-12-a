@@ -1,16 +1,24 @@
-import React, { FC } from 'react';
-import {PageProps} from 'gatsby';
-import PageLayout from '../components/PageLayout/PageLayout';
-import Seo from '../components/Seo'
-interface Props { }
+import React from 'react';
+import { graphql } from 'gatsby';
 
-const Index: FC<PageProps<Props>> = ({pageResources})=>{
-    return(
-        <PageLayout path={pageResources.page.path}>
-            <Seo title='Home' />
-            <h1>This is Home page</h1>
-        </PageLayout>
-    )
+export default ({data}) => {
+    console.log(data);
+    return (
+        <div>
+            <div>{data.allContentfulBlogPost.edges[0].node.title}</div>
+        </div>
+    );
 }
 
-export default Index;
+
+export const query = graphql`
+  query {
+    allContentfulBlogPost {
+        edges {
+          node {
+            title
+          }
+        }
+      }
+  }
+`
